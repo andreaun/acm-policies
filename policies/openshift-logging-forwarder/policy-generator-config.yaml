@@ -1,0 +1,22 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: openshift-logging-forwarder
+policyDefaults:
+  namespace: acm-policies
+  remediationAction: enforce
+  severity: medium
+  pruneObjectBehavior: None
+  consolidateManifests: false
+  placement:
+    placementName: policy-openshift-logging-forwarder-placement
+  categories: []
+  standards: []
+  controls: []
+policies:
+  - name: policy-openshift-logging-forwarder
+    manifests:
+      - path: manifests/00-namespace.yaml
+      - path: manifests/01-operator-policy.yaml
+      - path: manifests/02-rbac.yaml
+      - path: manifests/03-cluster-log-forwarder.yaml

@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: OperatorPolicy
+metadata:
+  name: policy-install-operator-openshift-logging
+spec:
+  remediationAction: enforce
+  severity: critical
+  complianceType: musthave
+  subscription:
+    name: cluster-logging
+    namespace: openshift-logging
+    channel: stable-6.5
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+  upgradeApproval: Automatic

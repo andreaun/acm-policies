@@ -1,0 +1,26 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  serviceAccount:
+    name: collector
+  outputs:
+    - name: external-syslog
+      type: syslog
+      syslog:
+        url: tcp://192.168.0.200:514
+        facility: user
+        rfc: RFC5424
+        severity: informational
+        payloadKey: "{.message}"
+  pipelines:
+    - name: forward-application-infrastructure-audit
+      inputRefs:
+        - application
+        - infrastructure
+        - audit
+      outputRefs:
+        - external-syslog
